@@ -19,20 +19,18 @@ fun main() {
         println("\n--- Ocurrió un error durante la organización ---")
         e.printStackTrace()
     }
+    leer_ficheros("datos_ini","text.txt")
 }
 
-fun leer_ficheros(directorio: String) {
+fun leer_ficheros(directorio: String, archivo: String) {
     val carpetaPrincipal = Path.of(directorio)
-    println("--- Mostrando la estructura final con Files.walk() ---")
     try {
         Files.walk(carpetaPrincipal).use { stream ->
             stream.sorted().forEach { path ->
-                val profundidad = path.nameCount - carpetaPrincipal.nameCount
-                val indentacion = "\t".repeat(profundidad)
-                val prefijo = if (Files.isDirectory(path)) "[DIR]" else "[FILE]"
-                if (profundidad > 0) {
-                    println("$indentacion$prefijo ${path.fileName}")
+                if (path.fileName.toString() == archivo){
+                    println("se ha encontrado "+archivo)
                 }
+
             }
         }
     } catch (e: Exception) {
