@@ -24,17 +24,25 @@ fun main() {
 
 fun leer_ficheros(directorio: String, archivo: String) {
     val carpetaPrincipal = Path.of(directorio)
+    var maybe = false
     try {
         Files.walk(carpetaPrincipal).use { stream ->
             stream.sorted().forEach { path ->
                 if (path.fileName.toString() == archivo){
-                    println("se ha encontrado "+archivo)
+                    maybe=true
                 }
-
             }
         }
+        if (maybe){
+            println("Se ha encontrado "+archivo)
+        } else{
+            println("No se ha encontrado "+archivo)
+
+        }
+
     } catch (e: Exception) {
         println("\n--- Ocurrió un error durante el recorrido ---")
         e.printStackTrace()
     }
+
 }
