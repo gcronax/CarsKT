@@ -3,32 +3,40 @@ import java.nio.file.Path
 import java.nio.file.StandardCopyOption
 import kotlin.io.path.extension // Extensión de Kotlin para obtener la extensión
 fun main() {
-    val carpeta = Path.of("multimedia")
-    println("--- Iniciando la organización de la carpeta: " + carpeta + "---")
+// 1. Ruta de la carpeta a organizar
+    val carpeta_ini = Path.of("datos_ini")
+    val carpeta_fin = Path.of("datos_fin")
     try {
-        Files.list(carpeta).use { streamDePaths ->
-            streamDePaths.forEach { pathFichero ->
-                if (Files.isRegularFile(pathFichero)) {
-                    val extension = pathFichero.extension.lowercase()
-                    if (extension.isBlank()) {
-                        println("-> Ignorando: " + pathFichero.fileName)
-                        return@forEach // Salta a la siguiente iteración del bucle
+        if (Files.notExists(carpeta_ini)) {
+                        println("-> Creando nueva carpeta " + carpeta_ini.fileName)
+                        Files.createDirectories(carpeta_ini.fileName)
                     }
-                    val carpetaDestino = carpeta.resolve(extension)
-                    if (Files.notExists(carpetaDestino)) {
-                        println("-> Creando nueva carpeta " + extension)
-                        Files.createDirectories(carpetaDestino)
-                    }
-                    val pathDestino = carpetaDestino.resolve(pathFichero.fileName)
-                    Files.move(pathFichero, pathDestino, StandardCopyOption.REPLACE_EXISTING)
-                    println("-> Moviendo " + pathFichero.fileName + " a " + extension)
+        if (Files.notExists(carpeta_fin)) {
+            println("-> Creando nueva carpeta " + carpeta_fin.fileName)
+            Files.createDirectories(carpeta_fin.fileName)
+        }
+    } catch (e: Exception) {
+        println("\n--- Ocurrió un error durante la organización ---")
+        e.printStackTrace()
+    }
+}
+
+fun leer_ficheros(directorio: String) {
+    val carpetaPrincipal = Path.of(directorio)
+    println("--- Mostrando la estructura final con Files.walk() ---")
+    try {
+        Files.walk(carpetaPrincipal).use { stream ->
+            stream.sorted().forEach { path ->
+                val profundidad = path.nameCount - carpetaPrincipal.nameCount
+                val indentacion = "\t".repeat(profundidad)
+                val prefijo = if (Files.isDirectory(path)) "[DIR]" else "[FILE]"
+                if (profundidad > 0) {
+                    println("$indentacion$prefijo ${path.fileName}")
                 }
             }
         }
-
-        println("\n--- ¡Organización completada con éxito! ---")
     } catch (e: Exception) {
-        println("\n--- Ocurrió un error durante la organización ---")
+        println("\n--- Ocurrió un error durante el recorrido ---")
         e.printStackTrace()
     }
 }
