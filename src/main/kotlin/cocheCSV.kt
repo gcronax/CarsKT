@@ -13,7 +13,7 @@ fun main() {
     datos = leerDatosInicialesCSV(entradaCSV)
     for (dato in datos) {println(" - ID: ${dato.id_coche}," +
             " Nombre modelo: ${dato.nombre_modelo}, Nombre marca: ${dato.nombre_marca}," +
-            " Consumo: ${dato.consumo} días, Cavallos: ${dato.HP} metros")
+            " Consumo: ${dato.consumo}, Cavallos: ${dato.HP} metros")
     }
     escribirDatosCSV(salidaCSV, datos)
 }
