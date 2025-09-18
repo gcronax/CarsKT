@@ -3,7 +3,7 @@ import java.nio.file.Path
 import java.nio.file.StandardCopyOption
 import kotlin.io.path.extension // Extensión de Kotlin para obtener la extensión
 fun main() {
-// 1. Ruta de la carpeta a organizar
+
     val carpeta_ini = Path.of("datos_ini")
     val carpeta_fin = Path.of("datos_fin")
     try {
