@@ -5,7 +5,6 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
 data class Coche(val id_coche: Int, val nombre_modelo: String, val
 nombre_marca: String, val consumo: Double, val HP: Int)
-// id modelo marca consumo cv
 
 fun main() {
     val entradaCSV = Path.of("datos_ini/coches.csv")
