@@ -51,14 +51,11 @@ fun leerDatosInicialesXML(ruta: Path): List<Auto> {
 fun escribirDatosXML(ruta: Path, autos: List<Auto>) {
     try {
         val fichero: File = ruta.toFile()
-// Creamos instancia de la clase 'Plantas' (raíz del XML).
         val contenedorXml = Coches(autos)
-// Configuramos el 'XmlMapper' (motor de Jackson) para la conversión a XML.
         val xmlMapper = XmlMapper().registerKotlinModule()
 
         val xmlString =
             xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(contenedorXml)
-// escribir un String en un fichero con 'writeText'
         fichero.writeText(xmlString)
         println("\nInformación guardada en: $fichero")
     } catch (e: Exception) {

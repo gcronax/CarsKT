@@ -1,23 +1,36 @@
+//csv a xml
+import com.fasterxml.jackson.dataformat.xml.XmlMapper
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlElementWrapper
+import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import java.nio.file.Files
 import java.nio.file.Path
 import java.io.File
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
-import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
-data class Cochecsv(val id_coche: Int, val nombre_modelo: String, val
+
+data class Coche_csv_xml(val id_coche: Int, val nombre_modelo: String, val
 nombre_marca: String, val consumo: Double, val HP: Int)
+
+data class Cochescsv_xml(@JacksonXmlElementWrapper(useWrapping = false) // No necesitamos la etiqueta <plantas> aquí
+                         @JacksonXmlProperty(localName = "auto")
+                         val listaAutos: List<Coche_csv_xml> = emptyList()
+)
+
+
+
 
 fun main() {
     val entradaCSV = Path.of("datos_ini/coches.csv")
-    val salidaCSV = Path.of("datos_ini/coches2.csv")
+    val salidaCSV = Path.of("datos_ini/cochesCSV->XML.xml")
     val datos: List<Coche_csv_xml>
-    datos = leerDatosInicialesCSV(entradaCSV)
+    datos = leerDatosInicialesCSV_XML(entradaCSV)
     for (dato in datos) {println(" - ID: ${dato.id_coche}," +
             " Nombre modelo: ${dato.nombre_modelo}, Nombre marca: ${dato.nombre_marca}," +
             " Consumo: ${dato.consumo}, Cavallos: ${dato.HP} metros")
     }
-    escribirDatosCSV(salidaCSV, datos)
+    escribirDatosCSV_XML(salidaCSV, datos)
 }
-fun leerDatosInicialesCSV(ruta: Path): List<Coche_csv_xml>
+fun leerDatosInicialesCSV_XML(ruta: Path): List<Coche_csv_xml>
 {
     var coches: List<Coche_csv_xml> =emptyList()
     if (!Files.isReadable(ruta)) {
@@ -49,21 +62,15 @@ fun leerDatosInicialesCSV(ruta: Path): List<Coche_csv_xml>
     }
     return coches
 }
-fun escribirDatosCSV(ruta: Path, coches: List<Coche_csv_xml>){
+fun escribirDatosCSV_XML(ruta: Path, coches: List<Coche_csv_xml>){
     try {
         val fichero: File = ruta.toFile()
-        csvWriter {
-            delimiter = ';'
-        }.writeAll(
-            coches.map { coche ->
-                listOf(coche.id_coche.toString(),
-                    coche.nombre_modelo,
-                    coche.nombre_marca,
-                    coche.consumo.toString(),
-                    coche.HP.toString())
-            },
-            fichero
-        )
+        val contenedorXml = Cochescsv_xml(coches)
+        val xmlMapper = XmlMapper().registerKotlinModule()
+
+        val xmlString =
+            xmlMapper.writerWithDefaultPrettyPrinter().writeValueAsString(contenedorXml)
+        fichero.writeText(xmlString)
         println("\nInformación guardada en: $fichero")
     } catch (e: Exception) {
         println("Error: ${e.message}")
