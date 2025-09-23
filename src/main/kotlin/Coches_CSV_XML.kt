@@ -11,7 +11,7 @@ import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 data class Coche_csv_xml(val id_coche: Int, val nombre_modelo: String, val
 nombre_marca: String, val consumo: Double, val HP: Int)
 
-data class Cochescsv_xml(@JacksonXmlElementWrapper(useWrapping = false) // No necesitamos la etiqueta <plantas> aquí
+data class Coches_list_csv_xml(@JacksonXmlElementWrapper(useWrapping = false)
                          @JacksonXmlProperty(localName = "auto")
                          val listaAutos: List<Coche_csv_xml> = emptyList()
 )
@@ -65,7 +65,7 @@ fun leerDatosInicialesCSV_XML(ruta: Path): List<Coche_csv_xml>
 fun escribirDatosCSV_XML(ruta: Path, coches: List<Coche_csv_xml>){
     try {
         val fichero: File = ruta.toFile()
-        val contenedorXml = Cochescsv_xml(coches)
+        val contenedorXml = Coches_list_csv_xml(coches)
         val xmlMapper = XmlMapper().registerKotlinModule()
 
         val xmlString =
