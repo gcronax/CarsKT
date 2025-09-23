@@ -3,13 +3,13 @@ import java.nio.file.Path
 import java.io.File
 import com.github.doyaaaaaken.kotlincsv.dsl.csvReader
 import com.github.doyaaaaaken.kotlincsv.dsl.csvWriter
-data class Coche(val id_coche: Int, val nombre_modelo: String, val
+data class Cochecsv(val id_coche: Int, val nombre_modelo: String, val
 nombre_marca: String, val consumo: Double, val HP: Int)
 
 fun main() {
     val entradaCSV = Path.of("datos_ini/coches.csv")
     val salidaCSV = Path.of("datos_ini/coches2.csv")
-    val datos: List<Coche>
+    val datos: List<Cochecsv>
     datos = leerDatosInicialesCSV(entradaCSV)
     for (dato in datos) {println(" - ID: ${dato.id_coche}," +
             " Nombre modelo: ${dato.nombre_modelo}, Nombre marca: ${dato.nombre_marca}," +
@@ -17,9 +17,9 @@ fun main() {
     }
     escribirDatosCSV(salidaCSV, datos)
 }
-fun leerDatosInicialesCSV(ruta: Path): List<Coche>
+fun leerDatosInicialesCSV(ruta: Path): List<Cochecsv>
 {
-    var coches: List<Coche> =emptyList()
+    var coches: List<Cochecsv> =emptyList()
     if (!Files.isReadable(ruta)) {
         println("Error: No se puede leer el fichero en la ruta: $ruta")
     } else{
@@ -35,7 +35,7 @@ fun leerDatosInicialesCSV(ruta: Path): List<Coche>
                     val nombre_marca = columnas[2]
                     val consumo = columnas[3].toDouble()
                     val hp = columnas[4].toInt()
-                    Coche(id_planta,nombre_modelo, nombre_marca, consumo, hp)
+                    Cochecsv(id_planta,nombre_modelo, nombre_marca, consumo, hp)
                 } catch (e: Exception) {
 
                     println("Fila inválida ignorada: $columnas -> Error: ${e.message}")
@@ -49,7 +49,7 @@ fun leerDatosInicialesCSV(ruta: Path): List<Coche>
     }
     return coches
 }
-fun escribirDatosCSV(ruta: Path, coches: List<Coche>){
+fun escribirDatosCSV(ruta: Path, coches: List<Cochecsv>){
     try {
         val fichero: File = ruta.toFile()
         csvWriter {
