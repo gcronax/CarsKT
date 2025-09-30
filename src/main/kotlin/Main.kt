@@ -19,15 +19,22 @@ fun main() {
         println("\n--- Ocurrió un error durante la organización ---")
         e.printStackTrace()
     }
-    leer_ficheros("datos_ini","text.txt")
-    cochesCSV()
-    cochesXML()
-    cochesJson()
-    coches_csv_a_xml()
+    if (leer_ficheros("datos_ini","coches.csv")){
+        cochesCSV()
+        coches_csv_a_xml()
+    }
+    if (leer_ficheros("datos_ini","coches.xml")){
+        cochesXML()
+    }
+    if (leer_ficheros("datos_ini","coches.json")){
+        cochesJson()
+    }
+
     pruebas()
 }
 
-fun leer_ficheros(directorio: String, archivo: String) {
+
+fun leer_ficheros(directorio: String, archivo: String): Boolean {
     val carpetaPrincipal = Path.of(directorio)
     var maybe = false
     try {
@@ -49,5 +56,6 @@ fun leer_ficheros(directorio: String, archivo: String) {
         println("\n--- Ocurrió un error durante el recorrido ---")
         e.printStackTrace()
     }
+    return maybe
 
 }
