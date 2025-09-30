@@ -1,31 +1,29 @@
-import java.io.DataInputStream
-import java.io.DataOutputStream
-import java.io.FileInputStream
-import java.io.FileOutputStream
+import java.awt.Color
+import java.awt.image.BufferedImage
 import java.nio.file.Files
 import java.nio.file.Path
-fun main() {
-    val ruta = Path.of("multimedia/binario.dat")
-    Files.createDirectories(ruta.parent)
-// Escritura binaria
-    val fos = FileOutputStream(ruta.toFile())
-    val out = DataOutputStream(fos)
-    out.writeInt(42) // int (4 bytes)
-    out.writeDouble(3.1416) // double (8 bytes)
-    out.writeUTF("K") // char (2 bytes)
-    out.close()
-    fos.close()
-    println("Fichero binario escrito con DataOutputStream.")
-// Lectura binaria
-    val fis = FileInputStream(ruta.toFile())
-    val input = DataInputStream(fis)
-    val entero = input.readInt()
-    val decimal = input.readDouble()
-    val caracter = input.readUTF()
-    input.close()
-    fis.close()
-    println("Contenido leído:")
-    println(" Int: $entero")
-    println(" Double: $decimal")
-    println(" Char: $caracter")
+import java.nio.file.StandardCopyOption
+import javax.imageio.ImageIO
+fun pruebas() {
+    val originalPath = Path.of("multimedia/jpg/amanecer1.jpg")
+    val copiaPath = Path.of("multimedia/jpg/amanecer1_copia.jpg")
+    val grisPath = Path.of("multimedia/jpg/amanecer1_escala_de_grises.png")
+    if (!Files.exists(originalPath)) {
+        println("No se encuentra la imagen original: $originalPath")
+    } else {
+        Files.copy(originalPath, copiaPath, StandardCopyOption.REPLACE_EXISTING)
+        println("Imagen copiada a: $copiaPath")
+        val imagen: BufferedImage = ImageIO.read(copiaPath.toFile())
+        for (x in 0 until imagen.width) {
+            for (y in 0 until imagen.height) {
+                val color = Color(imagen.getRGB(x, y))
+                val gris = (color.red * 0.299 + color.green * 0.587 + color.blue *
+                        0.114).toInt()
+                val colorGris = Color(gris, gris, gris)
+                imagen.setRGB(x, y, colorGris.rgb)
+            }
+        }
+        ImageIO.write(imagen, "png", grisPath.toFile())
+        println("Imagen convertida a escala de grises y guardada como: $grisPath")
+    }
 }

@@ -20,6 +20,11 @@ fun main() {
         e.printStackTrace()
     }
     leer_ficheros("datos_ini","text.txt")
+    cochesCSV()
+    cochesXML()
+    cochesJson()
+    coches_csv_a_xml()
+    pruebas()
 }
 
 fun leer_ficheros(directorio: String, archivo: String) {

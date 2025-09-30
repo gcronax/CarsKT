@@ -27,7 +27,7 @@ data class Auto(
 data class Coches(@JacksonXmlElementWrapper(useWrapping = false) // No necesitamos la etiqueta <plantas> aquí
                   @JacksonXmlProperty(localName = "auto")
                   val listaAutos: List<Auto> = emptyList()
-)fun main() {
+)fun cochesXML() {
     val entradaXML = Path.of("datos_ini/coches.xml")
     val salidaXML = Path.of("datos_ini/coches2.xml")
     val datos: List<Auto>

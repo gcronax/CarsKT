@@ -6,7 +6,7 @@ import kotlinx.serialization.json.*
 @Serializable
 data class Cochejson(val id: Int, val modelo: String, val
 marca: String, val consumo_litros_por_100km: Double, val potencia_hp: Int)
-fun main() {
+fun cochesJson() {
     val entradaJSON = Path.of("datos_ini/coches.json")
     val salidaJSON = Path.of("datos_ini/coches2.json")
     val datos: List<Cochejson>

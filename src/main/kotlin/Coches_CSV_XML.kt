@@ -29,7 +29,7 @@ data class AutoXML_raiz(@JacksonXmlElementWrapper(useWrapping = false)
 )
 
 
-fun main() {
+fun coches_csv_a_xml() {
     val entradaCSV = Path.of("datos_ini/coches.csv")
     val salidaCSV = Path.of("datos_ini/cochesCSV->XML.xml")
     val datos: List<Coche_csv_xml>
