@@ -164,7 +164,7 @@ fun eliminarPlanta(path: Path, idPlanta: Int) {
 fun cochesCSV_a_bim() {
     val cochecsvPath: Path = Paths.get("coches.csv")
 
-    val archivoPath: Path = Paths.get("coches.bin")
+    val archivoPath: Path = Paths.get("plantas.bin")
     val lista = listOf(
         PlantaBinaria(1, "Rosa", 1.5),
         PlantaBinaria(2, "Girasol", 3.0),

@@ -31,7 +31,6 @@ fun main() {
         cochesJson()
     }
 
-    vaciarCrearFichero(Path.of("binario.bin"))
 }
 
 
