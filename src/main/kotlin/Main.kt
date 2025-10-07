@@ -22,6 +22,7 @@ fun main() {
     if (leer_ficheros("datos_ini","coches.csv")){
         cochesCSV()
         coches_csv_a_xml()
+        cochesCSV_a_bim()
     }
     if (leer_ficheros("datos_ini","coches.xml")){
         cochesXML()
@@ -30,7 +31,7 @@ fun main() {
         cochesJson()
     }
 
-    pruebas()
+    vaciarCrearFichero(Path.of("binario.bin"))
 }
 
 
