@@ -34,6 +34,7 @@ fun main() {
     var itera = true
 
     do {
+        println()
         println("   Selecciona una opcion: ")
         println("1. Mostrar todos los registros")
         println("2. Añadir un nuevo registro")
@@ -57,9 +58,9 @@ fun main() {
                     val Modelo = scanner.nextLine()
                     print("Marca: ")
                     val Marca = scanner.nextLine()
-                    print("Consumo: ")
+                    print("Consumo (double): ")
                     val Consumo = scanner.nextDouble()
-                    print("Potencia: ")
+                    print("Potencia (int): ")
                     val Potencia = scanner.nextInt()
                     scanner.nextLine()
 
@@ -101,6 +102,7 @@ fun main() {
     scanner.close()
 
 //    pruebasFormatos()
+    //pruebas de formatos descomentar para la verificacion de los ejercicios anteriores al 7
 }
 fun pruebasFormatos(){
 

@@ -58,7 +58,7 @@ fun anadir(path: Path, id_coche: Int, nombre_modelo: String, nombre_marca: Strin
             while (buffer.hasRemaining()) {
                 canal.write(buffer)
             }
-            println("Coche ${nuevaCocche.nombre_marca} '${nuevaCocche.nombre_modelo}' añadida con éxito.")
+            println("Coche ${nuevaCocche.nombre_marca} '${nuevaCocche.nombre_modelo}' añadido con éxito.")
         }
     } catch (e: Exception) {
         println("Error al añadir la coche: ${e.message}")
@@ -132,7 +132,7 @@ fun mostrar(path: Path): List<CocheBinario> {
             val HP = buffer.getInt()
 
             coches.add(CocheBinario(id, modelo, marca, consumo, HP))
-            println("  - ID: ${id}, Modelo: ${modelo}, Marca: ${marca}," +
+            println("ID: ${id}, Modelo: ${modelo}, Marca: ${marca}," +
                     " Consumo: ${consumo}, Potencia: ${HP}")
             buffer.clear()
         }
