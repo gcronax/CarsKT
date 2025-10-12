@@ -32,7 +32,7 @@ fun vaciarCrearFichero(path: Path) {
 }
 
 
-fun anadirCoche(path: Path, id_coche: Int,  nombre_modelo: String,  nombre_marca: String,  consumo: Double,  HP: Int) {
+fun añadir(path: Path, id_coche: Int, nombre_modelo: String, nombre_marca: String, consumo: Double, HP: Int) {
     val nuevaCocche = CocheBinario(id_coche,  nombre_modelo,  nombre_marca,  consumo,  HP)
 
     try {
@@ -69,7 +69,7 @@ fun anadirCoche(path: Path, id_coche: Int,  nombre_modelo: String,  nombre_marca
 fun importarCoches(archivoInicial: Path, archivoFinal: Path){
     val coches = leerCSV(archivoInicial)
     coches.forEach { coche ->
-        anadirCoche(archivoFinal, coche.id_coche, coche.nombre_modelo, coche.nombre_marca,
+        añadir(archivoFinal, coche.id_coche, coche.nombre_modelo, coche.nombre_marca,
             coche.consumo, coche.HP)
     }
 }

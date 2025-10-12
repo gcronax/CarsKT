@@ -30,18 +30,34 @@ fun main() {
     if (leer_ficheros("datos_ini","coches.json")){
         cochesJson()
     }
-    val cochecsvPath: Path = Paths.get("coches.csv")
-
-    val cochesBinPath: Path = Paths.get("coches.bin")
 
 
 
+    val cocheCsvPath: Path = Paths.get("datos_ini/coches.csv")
+
+    val cochesBinPath: Path = Paths.get("datos_ini/coches.bin")
+
+    vaciarCrearFichero(cochesBinPath)
+    importarCoches(cocheCsvPath,cochesBinPath)
+    printearMostrar(mostrar(cochesBinPath))
+
+    printearMostrar(mostrar(cochesBinPath))
 
 
 
 
 }
-
+fun printearMostrar(coches: List<CocheBinario>){
+    if (coches.isEmpty()) {
+        println("No hay coches en el archivo.")
+    } else {
+        println("Coches en el archivo:")
+        coches.forEach { coche ->
+            println("  - ID: ${coche.id_coche}, Modelo: ${coche.nombre_modelo}, Marca: ${coche.nombre_marca}," +
+                    " Consumo: ${coche.consumo}, Potencia: ${coche.HP}")
+        }
+    }
+}
 
 fun leer_ficheros(directorio: String, archivo: String): Boolean {
     val carpetaPrincipal = Path.of(directorio)
