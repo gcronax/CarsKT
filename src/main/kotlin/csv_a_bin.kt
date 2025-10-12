@@ -137,8 +137,8 @@ fun mostrar(path: Path): List<CocheBinario> {
     return coches
 }
 
-fun modificar(path: Path, idCoche: Int, nuevoConsumo: Double)
-{       //modificamos consumo
+fun modificar(path: Path, idCoche: Int, nuevoHP: Int)
+{       //modificamos HP horsepower
     FileChannel.open(path, StandardOpenOption.READ,
         StandardOpenOption.WRITE).use { canal ->
         val buffer = ByteBuffer.allocate(TAMANO_REGISTRO)
@@ -148,21 +148,21 @@ fun modificar(path: Path, idCoche: Int, nuevoConsumo: Double)
             buffer.flip()
             val id = buffer.getInt()
             if (id == idCoche) {
-                val posicionPrecio = posicionActual - TAMANO_REGISTRO + TAMANO_ID + TAMANO_TITULO + TAMANO_AUTOR + TAMANO_EDITORIAL
+                val posicionConsumo = posicionActual - TAMANO_REGISTRO + TAMANO_ID + TAMANO_MODELO + TAMANO_MARCA + TAMANO_CONSUMO
 
-                val bufferPrecio = ByteBuffer.allocate(TAMANO_PRECIO)
-                bufferPrecio.putDouble(nuevoConsumo)
+                val bufferHP = ByteBuffer.allocate(TAMANO_HP)
+                bufferHP.putInt(nuevoHP)
 
-                bufferPrecio.flip()
-                canal.write(bufferPrecio, posicionPrecio)
+                bufferHP.flip()
+                canal.write(bufferHP, posicionConsumo)
                 encontrado = true
             }
             buffer.clear()
         }
         if (encontrado) {
-            println("Precio del libro con ID $idCoche modificado a $nuevoConsumo €")
+            println("Potencia del coche con ID $idCoche modificado a $nuevoHP")
         } else {
-            println("No se encontró el libro con ID $idCoche")
+            println("No se encontró el coche con ID $idCoche")
         }
     }
 }
