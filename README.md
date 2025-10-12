@@ -15,7 +15,7 @@ data class CocheBinario(
 )
 ```
 ## **Estructura del registro binario**
-- **id_libro:** Int - 4 bytes
+- **id_coche:** Int - 4 bytes
 - **modelo:** String - 40 bytes (longitud fija)
 - **marca:** String - 40 bytes (longitud fija)
 - **consumo:** Double - 8 bytes
