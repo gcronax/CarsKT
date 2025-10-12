@@ -32,7 +32,7 @@ fun vaciarCrearFichero(path: Path) {
 }
 
 
-fun añadir(path: Path, id_coche: Int, nombre_modelo: String, nombre_marca: String, consumo: Double, HP: Int) {
+fun anadir(path: Path, id_coche: Int, nombre_modelo: String, nombre_marca: String, consumo: Double, HP: Int) {
     val nuevaCocche = CocheBinario(id_coche,  nombre_modelo,  nombre_marca,  consumo,  HP)
 
     try {
@@ -46,7 +46,7 @@ fun añadir(path: Path, id_coche: Int, nombre_modelo: String, nombre_marca: Stri
                 .padEnd(40, ' ')
                 .toByteArray(Charset.defaultCharset())
             buffer.put(modeloBytes, 0, 40)
-            val marcaBytes = nuevaCocche.nombre_modelo
+            val marcaBytes = nuevaCocche.nombre_marca
                 .padEnd(40, ' ')
                 .toByteArray(Charset.defaultCharset())
             buffer.put(marcaBytes, 0, 40)
@@ -66,10 +66,10 @@ fun añadir(path: Path, id_coche: Int, nombre_modelo: String, nombre_marca: Stri
 }
 
 
-fun importarCoches(archivoInicial: Path, archivoFinal: Path){
+fun importar(archivoInicial: Path, archivoFinal: Path){
     val coches = leerCSV(archivoInicial)
     coches.forEach { coche ->
-        añadir(archivoFinal, coche.id_coche, coche.nombre_modelo, coche.nombre_marca,
+        anadir(archivoFinal, coche.id_coche, coche.nombre_modelo, coche.nombre_marca,
             coche.consumo, coche.HP)
     }
 }
@@ -107,6 +107,8 @@ fun leerCSV(ruta: Path): List<CocheBinario>
 }
 
 fun mostrar(path: Path): List<CocheBinario> {
+    //como en la documentacion de referencia esta funcion devolvia una lista para luego ser tratada
+    //lo he deado igual salvo que printeo tambien lo que se ha leido
     val coches = mutableListOf<CocheBinario>()
     FileChannel.open(path, StandardOpenOption.READ).use { canal ->
         val buffer = ByteBuffer.allocate(TAMANO_REGISTRO)
@@ -130,7 +132,8 @@ fun mostrar(path: Path): List<CocheBinario> {
             val HP = buffer.getInt()
 
             coches.add(CocheBinario(id, modelo, marca, consumo, HP))
-
+            println("  - ID: ${id}, Modelo: ${modelo}, Marca: ${marca}," +
+                    " Consumo: ${consumo}, Potencia: ${HP}")
             buffer.clear()
         }
     }
