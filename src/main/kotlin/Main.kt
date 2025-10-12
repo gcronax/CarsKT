@@ -1,5 +1,6 @@
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 import kotlin.io.path.extension // Extensión de Kotlin para obtener la extensión
 fun main() {
@@ -22,7 +23,6 @@ fun main() {
     if (leer_ficheros("datos_ini","coches.csv")){
         cochesCSV()
         coches_csv_a_xml()
-        cochesCSV_a_bim()
     }
     if (leer_ficheros("datos_ini","coches.xml")){
         cochesXML()
@@ -30,6 +30,15 @@ fun main() {
     if (leer_ficheros("datos_ini","coches.json")){
         cochesJson()
     }
+    val cochecsvPath: Path = Paths.get("coches.csv")
+
+    val cochesBinPath: Path = Paths.get("coches.bin")
+
+
+
+
+
+
 
 }
 
