@@ -25,7 +25,7 @@ fun main() {
 
     val cocheCsvPath: Path = Paths.get("datos_ini/coches.csv")
 
-    val cochesBinPath: Path = Paths.get("datos_ini/coches.bin")
+    val cochesBinPath: Path = Paths.get("datos_fin/coches.bin")
 
     vaciarCrearFichero(cochesBinPath)
     importar(cocheCsvPath,cochesBinPath)
@@ -119,7 +119,7 @@ fun pruebasFormatos(){
 
     val cocheCsvPath: Path = Paths.get("datos_ini/coches.csv")
 
-    val cochesBinPath: Path = Paths.get("datos_ini/coches.bin")
+    val cochesBinPath: Path = Paths.get("datos_fin/coches.bin")
 
     vaciarCrearFichero(cochesBinPath)
     importar(cocheCsvPath,cochesBinPath)

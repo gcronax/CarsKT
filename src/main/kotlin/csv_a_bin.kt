@@ -73,9 +73,9 @@ fun importar(archivoInicial: Path, archivoFinal: Path){
             coche.consumo, coche.HP)
     }
 }
-fun leerCSV(ruta: Path): List<CocheBinario>
+fun leerCSV(ruta: Path): List<CocheCSV>
 {
-    var coches: List<CocheBinario> =emptyList()
+    var coches: List<CocheCSV> =emptyList()
     if (!Files.isReadable(ruta)) {
         println("Error: No se puede leer el fichero en la ruta: $ruta")
     } else{
@@ -91,7 +91,7 @@ fun leerCSV(ruta: Path): List<CocheBinario>
                     val nombre_marca = columnas[2]
                     val consumo = columnas[3].toDouble()
                     val hp = columnas[4].toInt()
-                    CocheBinario(id_coche,nombre_modelo, nombre_marca, consumo, hp)
+                    CocheCSV(id_coche,nombre_modelo, nombre_marca, consumo, hp)
                 } catch (e: Exception) {
 
                     println("Fila inválida ignorada: $columnas -> Error: ${e.message}")
